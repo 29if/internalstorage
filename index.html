@@ -10,13 +10,21 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: url('https://preview.redd.it/lucy-cyberpunk-edgerunners-3840x2160-v0-r49ipi5k8ita1.jpg?auto=webp&s=d5ad08933fae0661a018d528998ff0372f628039') no-repeat center center fixed;
-            background-size: cover; 
             height: 100vh;
             color: white;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
+            overflow: hidden; /* Ascunde overflow-ul */
+        }
+        video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Acoperă întreaga pagină */
+            z-index: -1; /* Așază videoclipul în spate */
         }
         .taskbar {
             position: fixed;
@@ -37,6 +45,15 @@
             background-size: cover;
             cursor: pointer;
             margin-right: 8px;
+        }
+        .website-icon {
+            width: 24px; /* Dimensiune mică pentru iconița site-ului */
+            height: 24px;
+            background: url('https://bio.linkcdn.cc/bio/links/icons/social/website.png') no-repeat center; /* URL-ul pentru iconița site-ului */
+            background-size: cover;
+            border-radius: 50%; /* Face iconița rotundă */
+            cursor: pointer;
+            margin-left: 8px; /* Spațiu între iconițe */
         }
         .storage-container {
             display: grid;
@@ -59,9 +76,49 @@
         .storage-block:hover {
             background-color: #3a3a3a; /* Schimbăm culoarea la hover */
         }
+        /* Stilizare pentru iframe */
+        .window {
+            position: fixed;
+            top: 50px; /* Poziționare față de taskbar */
+            left: 50%;
+            transform: translateX(-50%); /* Centrăm fereastra */
+            width: 80%; /* Lățime fereastră */
+            height: calc(100vh - 80px); /* Înălțime fereastră */
+            border: 2px solid rgba(255, 255, 255, 0.8); /* Contur fereastră */
+            border-radius: 8px; /* Colțuri rotunjite */
+            overflow: hidden; /* Ascunde overflow-ul */
+            z-index: 15; /* Asigură că fereastra este deasupra videoclipului */
+            display: none; /* Ascuns inițial */
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none; /* Fără contur */
+        }
+        .close-button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 20px;
+            height: 20px;
+            background-color: red; /* Culoare roșie pentru butonul de închidere */
+            color: white;
+            border: none;
+            border-radius: 50%; /* Rotund */
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
+
+    <video autoplay loop muted>
+        <source src="https://static.moewalls.com/videos/preview/2023/lucyna-and-black-cat-cyberpunk-edgerunners-preview.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 
     <div class="storage-container">
         <div class="storage-block">1TB</div>
@@ -77,8 +134,25 @@
 
     <div class="taskbar">
         <div class="start-button" title="Start"></div>
-        <!-- Textul "Taskbar" a fost eliminat -->
+        <div class="website-icon" title="Website" onclick="openPage()"></div> <!-- Iconița pentru link -->
     </div>
+
+    <div class="window" id="browserWindow">
+        <button class="close-button" onclick="closeWindow()">X</button> <!-- Buton de închidere -->
+        <iframe src="https://amv292004.blogspot.com/cheesed-to-meet-you" id="iframeContent"></iframe>
+    </div>
+
+    <script>
+        function openPage() {
+            var windowElement = document.getElementById('browserWindow');
+            windowElement.style.display = 'block'; // Afișează fereastra
+        }
+
+        function closeWindow() {
+            var windowElement = document.getElementById('browserWindow');
+            windowElement.style.display = 'none'; // Ascunde fereastra
+        }
+    </script>
 
 </body>
 </html>
